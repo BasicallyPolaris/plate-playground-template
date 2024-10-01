@@ -31,6 +31,7 @@ import {
   isBlockAboveEmpty,
   isSelectionAtBlockStart,
   someNode,
+  Value,
 } from '@udecode/plate-common';
 import {
   createPlateEditor,
@@ -122,14 +123,14 @@ import { TableRowElement } from '@/components/plate-ui/table-row-element';
 import { TodoListElement } from '@/components/plate-ui/todo-list-element';
 import { withDraggables } from '@/components/plate-ui/with-draggables';
 
-export default function PlateEditor() {
+export default function PlateEditor({ onChange }: { onChange: (value: Value) => void }) {
   const containerRef = useRef(null);
 
   const editor = useMyEditor();
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Plate editor={editor}>
+      <Plate editor={editor} onChange={({ value }) => onChange(value)}>
         <div
           ref={containerRef}
           className={cn(
